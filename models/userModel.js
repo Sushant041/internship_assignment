@@ -1,12 +1,10 @@
-const { Schema } = require("mongoose");
-
 const mongoose = require("mongoose");
 
 
 const userSchema = new mongoose.Schema({
         user_id: {type: String},
-          user_name: {type: String},
-          back_accounts: [
+        user_name: {type: String},
+        back_accounts: [
             {type: String}
         ],
         name: {type: String},

@@ -1,7 +1,6 @@
 const express = require("express");
 const connectToMongo = require ("./db");
 const cors = require("cors");
-const axios = require('axios');
 require('dotenv').config()
 
 
