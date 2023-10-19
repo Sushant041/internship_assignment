@@ -14,8 +14,10 @@ router.post("/user_data", async(req, res) =>{
         const response1 = await fetch("https://ifsc.razorpay.com/" + ifsc);
         const b_data = await response1.json();
 
-        const response2  = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${b_data.CITY}&appid=${process.env.APIKEY}&units=metric`)
+
+        const response2  = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${b_data.STATE}&appid=${api}&units=metric`)
         const w_data = await response2.json();
+
 
         const accounts = {
             "bank": b_data.BANK,
@@ -62,10 +64,22 @@ router.post("/user_data", async(req, res) =>{
 })
 
 
-router.get("/user_data", async(req, res) =>{
+router.get("/user_data/:id", async(req, res) =>{
+    
+    const userId = req.params.id;
 
     try {
-        const data = await User.find();
+        const data = await User.findById(userId)
+         const city = data.accounts.city;
+         console.log(city);
+         try {
+            
+         } catch (error) {
+            
+         }
+         const response2  = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric`)
+         const w_data = await response2.json();
+         data.accounts.weather = w_data;
         res.status(200).send(data);
     }
      catch (error) {
